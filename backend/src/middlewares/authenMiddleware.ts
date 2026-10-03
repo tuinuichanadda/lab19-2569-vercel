@@ -1,7 +1,9 @@
 import { type Request, type Response, type NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
 
 import { type CustomRequest, type UserPayload } from "../libs/types.ts";
 import { PrismaClient } from "../../generated/prisma/client.ts";

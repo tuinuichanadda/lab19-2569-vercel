@@ -2,7 +2,9 @@ import { Router, type Request, type Response } from "express";
 import jwt from "jsonwebtoken";
 
 import dotenv from "dotenv";
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+  dotenv.config();
+}
 
 import type { User, CustomRequest } from "../libs/types.ts";
 
