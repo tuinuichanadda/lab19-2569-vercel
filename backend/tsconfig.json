@@ -11,7 +11,8 @@
       "@src/*": ["./src/*"],
       "@db/*": ["./src/db/*"],
       "@libs/*": ["./src/libs/*"]
-    }
+    },
+    "noImplicitAny": false
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules"]
