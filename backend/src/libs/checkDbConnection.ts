@@ -11,7 +11,8 @@ export async function checkDatabaseConnection() {
   } catch (error) {
     console.error("❌ Database connection failed:", error);
     // Handle error (e.g., exit process, trigger alerts)
-    process.exit(1);
+    // บน Vercel ไม่ exit เพื่อไม่ให้ทั้ง function crash (ดู error ได้ใน Vercel Logs)
+    if (!process.env.VERCEL) process.exit(1);
   } finally {
     // Always disconnect after a manual health check script to free up the pool
     await prisma.$disconnect();
