@@ -71,9 +71,12 @@ app.use("/api/v3/enrollments", enrollmentRouter_v3);
 // endpoint check middleware
 app.use(notFoundMiddleware);
 
-app.listen(port, () => {
-  console.log(`🚀 Server running on http://localhost:${port}`);
-});
+// บน Vercel ไม่ต้อง listen เอง (Vercel เรียก app ผ่าน api/index.js)
+if (!process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`🚀 Server running on http://localhost:${port}`);
+  });
+}
 
 // Export app for vercel deployment
 export default app;
