@@ -9,6 +9,7 @@ import express, {
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import os from "os";
 
 // import database
 import { PrismaClient } from "../../generated/prisma/client.ts";
@@ -16,10 +17,13 @@ const prisma = new PrismaClient();
 
 const router = Router();
 
-// Ensure the upload directory exists locally
-const uploadDir = path.join(process.cwd(), "uploads");
+// Ensure the upload directory exists
+// บน Vercel เขียนไฟล์ได้เฉพาะใน /tmp (ไฟล์จะหายเมื่อ function ถูก restart)
+const uploadDir = process.env.VERCEL
+  ? path.join(os.tmpdir(), "uploads")
+  : path.join(process.cwd(), "uploads");
 if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
+  fs.mkdirSync(uploadDir, { recursive: true });
 }
 
 // 1. Configure Multer Disk Storage
